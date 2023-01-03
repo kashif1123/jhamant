@@ -15,6 +15,7 @@ use Yajra\DataTables\DataTables;
 
 
 
+
 class ExpenseController extends Controller
 {
     public function expense(){
