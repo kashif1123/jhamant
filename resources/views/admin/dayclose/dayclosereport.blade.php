@@ -333,7 +333,7 @@
                                         </thead>
                                         <tbody>
                                       <?php $i=1 ?>
-                                        @foreach($sales_cash_customers as $sale)
+                                        @foreach($sales_cash_suppliers as $sale)
                                         <tr>
                                             <td>{{$i}}</td>
                                             <td id="r_g_1_name">{{$sale->invoice}}</td>
