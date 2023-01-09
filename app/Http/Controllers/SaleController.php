@@ -7,11 +7,13 @@ use App\Company;
 use App\Customer;
 use App\CustomerInvoice;
 use App\Employee;
+use App\EmployeeCommission;
 use App\Ledger;
 use App\Product;
 use App\Purchase;
 use App\Sale;
 use App\Supplier;
+use http\Message;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
@@ -500,11 +502,36 @@ class SaleController extends Controller
                 $bankLedger->save();
             }
 
+            if ($request->employee !== 'default' and $request->employee !== null and $request->employee !== 'null') {
+                $employee = Employee::find($request->employee);
+                $employee_ledger_pre = Ledger::where('person_type', '=', 'employee')->where('person_id', '=', $request->employee)->get()->last();
+                $employee_ledger = new Ledger();
+                $employee_ledger->person_type = 'employee';
+                $employee_ledger->transaction_type = 'commission';
+                $employee_ledger->main_transaction_id = $customer->id;
+                $employee_ledger->person_id = $request->employee;
+                $employee_ledger->person_name = $employee->name;
+                $employee_ledger->cnic = $employee->cnic;
+                $employee_ledger->date = date('Y-m-d H:i:s', strtotime($request->datetime));
+                $employee_ledger->description = "Commission of $request->employee_commission was analyzed on sale Id: $request->invoice";
+                $employee_ledger->credit = $request->employee_commission;
+                $employee_ledger->balance = $employee_ledger_pre->balance - $request->employee_commission;
+                $employee_ledger->save();
+                $employee_commission=new EmployeeCommission();
+                $employee_commission->user_id=Auth::id();
+                $employee_commission->employee_id=$request->employee;
+                $employee_commission->invoice_no=Auth::id()."".$request->invoice;
+                $employee_commission->employee_commission=$request->employee_commission;
+                $employee_commission->save();
+            }
+
+
+
             DB::commit();
             return response(['type' => 'success', 'message' => 'Sale created successfully....']);
         } catch (\PDOException $e) {
             DB::rollBack();
-            return response(['type' => 'error', 'message' => 'Error While Saving Transactions...']);
+            return response(['type' => 'error', 'message' => 'Error While Saving Transactions...'.$e->getMessage()]);
         }
 
     }

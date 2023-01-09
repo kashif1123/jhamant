@@ -1250,6 +1250,66 @@ $sum_total_paying_amount+=$o_pay->paying_amount;
                             </div>
                             @endif
                             @endif
+
+
+
+
+
+                            @if(isset($employee_commission))
+                                @if($employee_commission->count() > 0)
+                                    <div style="text-align: center;background-color: lightgrey;color: black;font-size: 20px;margin-bottom: 10px;">Employee Commissions</div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <table id="usertable" class="table table-bordered" >
+                                                <thead>
+                                                <tr style="background-color: rgba(165,165,171,0.25)">
+                                                    <td>Sr.</td>
+                                                    <td>Employee Name</td>
+                                                    <td>Employee Commission</td>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                @php $i=1; @endphp
+                                                @foreach($employee_commission as $e_commission)
+                                                    <tr>
+                                                        <td>{{$i}}</td>
+                                                        <td id="r_p_p_name">{{$e_commission->name}}</td>
+                                                        <td id="r_p_p_p_p">{{$e_commission->sum}}</td>
+                                                    </tr>
+                                                    @php $i++; @endphp
+                                                @endforeach
+                                                </tbody>
+                                                <tfoot>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td class="r_p_t_m_p_" style="font-weight: bold;background-color: rgba(225,225,225,0.18);">{{$total_employee_commission}}</td>
+                                                </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                             @if(isset($margin_profit))
                             @if($margin_profit->count() > 0)
                             <div style="text-align: center;background-color: lightgrey;color: black;font-size: 20px;margin-bottom: 10px;">Margin Profit</div>

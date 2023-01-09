@@ -9,6 +9,7 @@ use App\Dayclose;
 use App\DayCloseBalance;
 use App\DaycloseStock;
 use App\Dip;
+use App\EmployeeCommission;
 use App\ExpenseDetail;
 use App\PayAmount;
 use App\Product;
@@ -158,6 +159,9 @@ class DayCloseController extends Controller
         $c_stock=DaycloseStock::select('closing_stock','name','closing_s_rate','closing_p_rate')->whereDate('daycloses.closing_date','=',$date)
             ->join('daycloses','daycloses.id','=','dayclose_stocks.day_id')
             ->join('products','products.id','=','dayclose_stocks.product_id')->get();
+        $employee_commission=EmployeeCommission::select('name')->whereDate('employee_commissions.created_at','=',$date)
+            ->join('employees','employees.id','=','employee_commissions.employee_id')->groupBy('employee_id')->selectRaw('sum(employee_commission) as sum')->get();
+        $total_employee_commission=EmployeeCommission::whereDate('employee_commissions.created_at','=',$date)->sum('employee_commission');
         $total_expanses=ExpenseDetail::where('expense_date','=',$date)->select('amount')
             ->sum('amount');
         $withholding_profit=SupplierInvoice::where('date_of_purchase','=',$date)->sum('withholding_tax');
@@ -167,7 +171,7 @@ class DayCloseController extends Controller
             'cash_in_hand','add','bank_trnsfers','o_paying','m_paying','o_receiving','m_receiving',
             'sales_credit_customers','sales_credit_suppliers','sales_cash_customers','sales_cash_suppliers',
             'purchase_cash_suppliers','purchase_cash_customers','purchase_credit_suppliers','purchase_credit_customers',
-            'expenses','purchase_return',
+            'expenses','purchase_return','employee_commission','total_employee_commission',
             'purchase_return2','sale_return','sale_return2','s_receiving','c_receiving','s_paying','c_paying','date','last_date'));
     }
 
@@ -294,9 +298,13 @@ class DayCloseController extends Controller
             ->join('bank_accounts as bank_from', 'bank_from.id', '=', 'bank_transfers.account_from')
             ->join('bank_accounts as bank_to', 'bank_to.id', '=', 'bank_transfers.account_to')
             ->get();
+        $employee_commission=EmployeeCommission::select('name')->whereDate('employee_commissions.created_at','=',$date)
+            ->join('employees','employees.id','=','employee_commissions.employee_id')->groupBy('employee_id')->selectRaw('sum(employee_commission) as sum')->get();
+        $total_employee_commission=EmployeeCommission::whereDate('employee_commissions.created_at','=',$date)->sum('employee_commission');
         $margin_profit=Sale::whereDate('sales.sale_date','=',$date)->select('products.name','sales.quantity','sales.sale_price','sales.purchase_price','sales.margin_profit')
             ->join('products','products.id','=','sales.product_id')
             ->get();
+
         $sum_margin=Sale::whereDate('sales.sale_date','=',$date)->sum('margin_profit');
         $c_stock=DaycloseStock::select('closing_stock','name','closing_s_rate','closing_p_rate')->whereDate('daycloses.closing_date','=',$date)
             ->join('daycloses','daycloses.id','=','dayclose_stocks.day_id')
@@ -307,7 +315,7 @@ class DayCloseController extends Controller
         $net_profit=$sum_margin+$withholding_profit-$total_expanses;
         return view('admin.dayclose.dayclosereport',compact('withholding_profit','margin_profit','sum_margin','net_profit','total_expanses','c_stock','petrol','p_sales','p_purchases','p_opening_stock','diesel','d_sales','d_purchases','d_opening_stock','cash_in_hand_date','add',
             'sales_credit_customers','sales_credit_suppliers','sales_cash_customers','sales_cash_suppliers','bank_trnsfers','o_receiving','m_receiving',
-            'purchase_cash_suppliers','purchase_cash_customers','purchase_credit_suppliers','purchase_credit_customers','o_paying','m_paying',
+            'purchase_cash_suppliers','purchase_cash_customers','purchase_credit_suppliers','purchase_credit_customers','o_paying','m_paying','employee_commission','total_employee_commission',
             'expenses','purchase_return','purchase_return2','sale_return','sale_return2','s_receiving','c_receiving','s_paying','c_paying','date','last_date'));
     }
 
