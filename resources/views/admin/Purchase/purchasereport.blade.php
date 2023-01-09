@@ -28,7 +28,7 @@
 
     </style>
     <link rel="stylesheet" type="text/css" href="{{ url('DataTables/datatables.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url('assets/editor/css/editor.bootstrap.css') }}">
+{{--    <link rel="stylesheet" type="text/css" href="{{ url('assets/editor/css/editor.bootstrap.css') }}">--}}
 
 
 
@@ -158,6 +158,7 @@
                                     <tr>
                                         <th>Sr</th>
                                         <th>Invoice</th>
+                                        <th>Employee Name</th>
                                         <th>Supplier Name</th>
                                         <th>Total</th>
                                         <th>Discount</th>
@@ -172,6 +173,7 @@
                                     </tbody>
                                     <tfoot>
                                     <tr style="border: 1px solid black!important; background-color: #eeeeee;">
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -192,7 +194,7 @@
                     <div class="kt-portlet__body">
                         <div class="box">
                         <div class="box-header">
-                        <h3 class="box-title">Purchases from Customers </h3>
+                        <h3 class="box-title">Purchases from Customers</h3>
                         </div>
                         <!-- /.box-header -->
                             <div class="box-body" style="overflow-x:auto;">
@@ -201,6 +203,7 @@
                                     <tr>
                                         <th>Sr</th>
                                         <th>Invoice</th>
+                                        <th>Employee Name</th>
                                         <th>Customer Name</th>
                                         <th>Total</th>
                                         <th>Discount</th>
@@ -215,6 +218,7 @@
                                     </tbody>
                                     <tfoot>
                                     <tr style="border: 1px solid black!important; background-color: #eeeeee;">
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -248,12 +252,12 @@
     <script src="{{url('assets/js/demo10/pages/crud/forms/widgets/bootstrap-datepicker.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/js/demo10/pages/crud/forms/widgets/select2.js')}}" type="text/javascript"></script>
     <script src="{{ url('DataTables/datatables.js') }}"></script>
-    <script src="{{ url('assets/editor/js/dataTables.editor.js') }}"></script>
-    <script src="{{ url('assets/editor/js/editor.bootstrap.js') }}"></script>
+{{--    <script src="{{ url('assets/editor/js/dataTables.editor.js') }}"></script>--}}
+{{--    <script src="{{ url('assets/editor/js/editor.bootstrap.js') }}"></script>--}}
     {{--<script src="{{ url('js/pipline.js') }}"></script>--}}
 
     <script>
-        var editor;
+        // var editor;
         jQuery.fn.dataTable.Api.register( 'sum()', function ( ) {
             return this.flatten().reduce( function ( a, b ) {
                 if ( typeof a === 'string' ) {
@@ -272,20 +276,7 @@
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 }
             });
-            editor =  new $.fn.DataTable.Editor({
-                ajax: "{{ url('pay_receive/dtpostshowallpurchase') }}",
-                table: "#products",
-                display: "bootstrap",
-                idSrc:'id',
-                fields: [
-                    // {label: "Invoice:", name: "person_type",type:"readonly"},
-                    // {label: "Product Name:", name: "branch_code",type:"readonly"},
-                    // {label: "Purchase Price:", name: "branch_name",type:"readonly"},
-                    // {label: "Quantity:", name: "date",type:"readonly"},
-                    // {label: "Date of Purchase:", name: "receiving_amount",type:"readonly"},
-                    // {label: "Action:", name: "action",type:"readonly"},
-                ]
-            });
+
 
             $('#products thead tr').clone(true).appendTo('#products thead');
             $('#products thead tr:eq(1) th').each( function (i) {
@@ -431,6 +422,7 @@
                                     '<tr>' +
                                     '<th style="text-align: center;">Sr.</th>' +
                                     '<th style="text-align: center;">Invoice</th>' +
+                                    '<th style="text-align: center;">Employee Name</th>' +
                                     '<th style="text-align: center;">Supplier Name</th>' +
                                     '<th style="text-align: center;">Total</th>' +
                                     '<th style="text-align: center;">Discount</th>' +
@@ -494,6 +486,7 @@
                         'name':'id',
                     },
                     {data:'invoice','name':'invoice'},
+                    {data:'user_name','name':'user_name'},
                     {data:'name','name':'name'},
                     {data:'total','name':'total'},
                     {data:'discount','name':'discount'},
@@ -625,6 +618,7 @@
                         'name':'id',
                     },
                     {data:'invoice','name':'invoice'},
+                    {data:'user_name','name':'user_name'},
                     {data:'name','name':'name'},
                     {data:'total','name':'total'},
                     {data:'discount','name':'discount'},
@@ -636,10 +630,10 @@
                 ],
                 "footerCallback": function(row, data, start, end, display) {
                     var api = this.api();
-                    var f_total2= api.column( 3, {page:'current'} ).data().sum();
-                    var f_grand_total2= api.column( 5, {page:'current'} ).data().sum();
-                    var f_paid2= api.column( 6, {page:'current'} ).data().sum();
-                    var f_due2= api.column( 7, {page:'current'} ).data().sum();
+                    var f_total2= api.column( 4, {page:'current'} ).data().sum();
+                    var f_grand_total2= api.column( 6, {page:'current'} ).data().sum();
+                    var f_paid2= api.column( 7, {page:'current'} ).data().sum();
+                    var f_due2= api.column( 8, {page:'current'} ).data().sum();
                     $('.f_total2').html(f_total2);
                     $('.f_grand_total2').html(f_grand_total2);
                     $('.f_paid2').html(f_paid2);

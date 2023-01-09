@@ -176,6 +176,7 @@
                                     <tr>
                                         <th>Sr</th>
                                         <th>Invoice</th>
+                                        <th>User Name</th>
                                         <th>Customer Name</th>
                                         <th>Total</th>
                                         <th>Discount</th>
@@ -192,6 +193,7 @@
                                     </tbody>
                                     <tfoot>
                                     <tr style="border: 1px solid black!important; background-color: #eeeeee;">
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -222,6 +224,7 @@
                                     <tr>
                                         <th>Sr</th>
                                         <th>Invoice</th>
+                                        <th>User Name</th>
                                         <th>Supplier Name</th>
                                         <th>Total</th>
                                         <th>Discount</th>
@@ -238,6 +241,7 @@
                                     </tbody>
                                     <tfoot>
                                     <tr style="border: 1px solid black!important; background-color: #eeeeee;">
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -392,7 +396,7 @@
     {{--<script src="{{ url('js/pipline.js') }}"></script>--}}
 
     <script>
-        var editor;
+        // var editor;
         jQuery.fn.dataTable.Api.register( 'sum()', function ( ) {
             return this.flatten().reduce( function ( a, b ) {
                 if ( typeof a === 'string' ) {
@@ -427,39 +431,39 @@
                 ]
             });
 
-            $('#products thead tr').clone(true).appendTo('#products thead');
-            $('#products thead tr:eq(1) th').each( function (i) {
-                if (i==0) {
-                }else {
-                    var title = $(this).text();
-                    $(this).html( '<input type="text" class="form-control" style="width:100%;" placeholder="'+title+'" />' );
-                    $( 'input', this ).on( 'keyup change', function () {
-                        if ( table.column(i).search() !== this.value ) {
-                            table
-                                .column(i)
-                                .search( this.value )
-                                .draw();
-                        }
-                    } );
-                }
-            } );
+            // $('#products thead tr').clone(true).appendTo('#products thead');
+            // $('#products thead tr:eq(1) th').each( function (i) {
+            //     if (i==0) {
+            //     }else {
+            //         var title = $(this).text();
+            //         $(this).html( '<input type="text" class="form-control" style="width:100%;" placeholder="'+title+'" />' );
+            //         $( 'input', this ).on( 'keyup change', function () {
+            //             if ( table.column(i).search() !== this.value ) {
+            //                 table
+            //                     .column(i)
+            //                     .search( this.value )
+            //                     .draw();
+            //             }
+            //         } );
+            //     }
+            // } );
 
-            $('#s_products thead tr').clone(true).appendTo('#products thead');
-            $('#s_products thead tr:eq(1) th').each( function (i) {
-                if (i==0) {
-                }else {
-                    var title = $(this).text();
-                    $(this).html( '<input type="text" class="form-control" style="width:100%;" placeholder="'+title+'" />' );
-                    $( 'input', this ).on( 'keyup change', function () {
-                        if ( s_table.column(i).search() !== this.value ) {
-                            s_table
-                                .column(i)
-                                .search( this.value )
-                                .draw();
-                        }
-                    } );
-                }
-            } );
+            // $('#s_products thead tr').clone(true).appendTo('#products thead');
+            // $('#s_products thead tr:eq(1) th').each( function (i) {
+            //     if (i==0) {
+            //     }else {
+            //         var title = $(this).text();
+            //         $(this).html( '<input type="text" class="form-control" style="width:100%;" placeholder="'+title+'" />' );
+            //         $( 'input', this ).on( 'keyup change', function () {
+            //             if ( s_table.column(i).search() !== this.value ) {
+            //                 s_table
+            //                     .column(i)
+            //                     .search( this.value )
+            //                     .draw();
+            //             }
+            //         } );
+            //     }
+            // } );
 
             function format ( d ,row) {
                 console.log(d);
@@ -527,6 +531,8 @@
                     });
                 }
             } );
+
+
             var table=  $('#products').DataTable({
                 dom: "Blfrtip",
                 "processing": true,
@@ -564,6 +570,7 @@
                                     '<tr>' +
                                     '<th style="text-align: center;">Sr.</th>' +
                                     '<th style="text-align: center;">Invoice</th>' +
+                                    '<th style="text-align: center;">User Name</th>' +
                                     '<th style="text-align: center;">Customer Name</th>' +
                                     '<th style="text-align: center;">Total</th>' +
                                     '<th style="text-align: center;">Discount</th>' +
@@ -630,6 +637,7 @@
                         'name':'id',
                     },
                     {data:'invoice','name':'invoice'},
+                    {data:'user_name','name':'user_name'},
                     {data:'name','name':'name'},
                     {data:'total','name':'total'},
                     {data:'discount','name':'discount'},
@@ -643,10 +651,10 @@
                 ],
                 "footerCallback": function(row, data, start, end, display) {
                     var api = this.api();
-                    var f_total= api.column( 3, {page:'current'} ).data().sum();
-                    var f_grand_total= api.column( 5, {page:'current'} ).data().sum();
-                    var f_paid= api.column( 6, {page:'current'} ).data().sum();
-                    var f_due= api.column( 7, {page:'current'} ).data().sum();
+                    var f_total= api.column( 4, {page:'current'} ).data().sum();
+                    var f_grand_total= api.column( 6, {page:'current'} ).data().sum();
+                    var f_paid= api.column( 7, {page:'current'} ).data().sum();
+                    var f_due= api.column( 8, {page:'current'} ).data().sum();
                     $('.f_total').html(f_total);
                     $('.f_grand_total').html(f_grand_total);
                     $('.f_paid').html(f_paid);
@@ -696,6 +704,7 @@
                                     '<tr>' +
                                     '<th style="text-align: center;">Sr.</th>' +
                                     '<th style="text-align: center;">Invoice</th>' +
+                                    '<th style="text-align: center;">User Name</th>' +
                                     '<th style="text-align: center;">Supplier Name</th>' +
                                     '<th style="text-align: center;">Total</th>' +
                                     '<th style="text-align: center;">Discount</th>' +
@@ -762,6 +771,7 @@
                         'name':'id',
                     },
                     {data:'invoice','name':'invoice'},
+                    {data:'user_name','name':'user_name'},
                     {data:'name','name':'name'},
                     {data:'total','name':'total'},
                     {data:'discount','name':'discount'},
@@ -775,10 +785,10 @@
                 ],
                 "footerCallback": function(row, data, start, end, display) {
                     var api = this.api();
-                    var s_f_total= api.column( 3, {page:'current'} ).data().sum();
-                    var s_f_grand_total= api.column( 5, {page:'current'} ).data().sum();
-                    var s_f_paid= api.column( 6, {page:'current'} ).data().sum();
-                    var s_f_due= api.column( 7, {page:'current'} ).data().sum();
+                    var s_f_total= api.column( 4, {page:'current'} ).data().sum();
+                    var s_f_grand_total= api.column( 6, {page:'current'} ).data().sum();
+                    var s_f_paid= api.column( 7, {page:'current'} ).data().sum();
+                    var s_f_due= api.column( 8, {page:'current'} ).data().sum();
                     $('.s_f_total').html(s_f_total);
                     $('.s_f_grand_total').html(s_f_grand_total);
                     $('.s_f_paid').html(s_f_paid);

@@ -12,6 +12,7 @@ use App\Product;
 use App\Purchase;
 use App\Sale;
 use App\Supplier;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 use App\SupplierInvoice;
@@ -68,8 +69,9 @@ class SaleController extends Controller
         return response(['s_products_data'=>$sale_products]);
     }
     public function dtgetallsale_customers(){
-        $data=CustomerInvoice::select('customer_invoices.id','invoice','customers.name','total','paid','employee_commission','employees.name as employee','due','discount','grand_total','date')
+        $data=CustomerInvoice::select('customer_invoices.id','invoice','customers.name as name','users.name as user_name','total','paid','employee_commission','employees.name as employee','due','discount','grand_total','date')
             ->join('customers','customers.id','=','customer_invoices.customer_id')
+            ->join('users','users.id','=','customer_invoices.user_id')
             ->leftJoin('employees','employees.id','=','customer_invoices.employee_id')
             ->where('customer_invoices.customer_person','=','customer')
             ->get();
@@ -82,9 +84,10 @@ class SaleController extends Controller
         }
     }
     public function dtgetallsale_suppliers(){
-        $data=CustomerInvoice::select('customer_invoices.id','invoice','suppliers.name','total','paid','employee_commission','employees.name as employee','due','discount','grand_total','date')
+        $data=CustomerInvoice::select('customer_invoices.id','invoice','suppliers.name as name','users.name as user_name','total','paid','employee_commission','employees.name as employee','due','discount','grand_total','date')
             ->join('suppliers','suppliers.id','=','customer_invoices.customer_id')
-            ->join('employees','employees.id','=','customer_invoices.employee_id')
+            ->join('users','users.id','=','customer_invoices.user_id')
+            ->leftJoin('employees','employees.id','=','customer_invoices.employee_id')
             ->where('customer_invoices.customer_person','=','supplier')
             ->get();
         try {
@@ -358,7 +361,8 @@ class SaleController extends Controller
             $customer = new CustomerInvoice();
             $customer->customer_id = $request->customer;
             $customer->customer_person = $cus_person;
-            $customer->invoice = $request->invoice;
+            $customer->user_id = Auth::id();
+            $customer->invoice = Auth::id()."".$request->invoice;
             $customer->total = $request->total;
             $customer->date = date('Y-m-d H:i:s', strtotime($request->datetime));
             $customer->paid = $request->paid;

@@ -19,6 +19,7 @@ use App\Supplier;
 use App\SupplierInvoice;
 use App\Unit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use PHPUnit\Runner\PhptTestCase;
 use Yajra\DataTables\DataTables;
@@ -260,8 +261,10 @@ class PurchaseController extends Controller
             }
     }
     public function dtgetallpurchaseforsuppliers(){
-        $data=SupplierInvoice::select('supplier_invoices.id','invoice','name','total','paid','due','discount','grand_total','date_of_purchase')
-            ->join('suppliers','suppliers.id','=','supplier_invoices.supplier_id')->where('supplier_invoices.supplier_person','=','supplier')
+        $data=SupplierInvoice::select('supplier_invoices.id','invoice','suppliers.name as name','users.name as user_name','total','paid','due','discount','grand_total','date_of_purchase')
+            ->join('suppliers','suppliers.id','=','supplier_invoices.supplier_id')
+            ->join('users','users.id','=','supplier_invoices.user_id')
+            ->where('supplier_invoices.supplier_person','=','supplier')
             ->get();
         try {
             return DataTables::of($data)->make(true);
@@ -270,8 +273,10 @@ class PurchaseController extends Controller
     }
 
     public function dtgetallpurchaseforcustomers(){
-        $data=SupplierInvoice::select('supplier_invoices.id','invoice','name','total','paid','due','discount','grand_total','date_of_purchase')
-            ->join('customers','customers.id','=','supplier_invoices.supplier_id')->where('supplier_invoices.supplier_person','=','customer')
+        $data=SupplierInvoice::select('supplier_invoices.id','invoice','customers.name as name','users.name as user_name','total','paid','due','discount','grand_total','date_of_purchase')
+            ->join('customers','customers.id','=','supplier_invoices.supplier_id')
+            ->join('users','users.id','=','supplier_invoices.user_id')
+            ->where('supplier_invoices.supplier_person','=','customer')
             ->get();
         try {
             return DataTables::of($data)->make(true);
@@ -379,8 +384,9 @@ class PurchaseController extends Controller
 
             $sup_invoices= new SupplierInvoice();
             $sup_invoices->supplier_id=$request->supplier;
+            $sup_invoices->user_id=Auth::id();
             $sup_invoices->supplier_person=$sup_person;
-            $sup_invoices->invoice=$request->invoice;
+            $sup_invoices->invoice=Auth::id()."".$request->invoice;
             $sup_invoices->total=$request->total;
             $sup_invoices->paid=$request->paid;
             $sup_invoices->date_of_purchase=date('Y-m-d H:i:s',strtotime($request->datetime));
