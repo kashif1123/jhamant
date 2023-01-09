@@ -158,7 +158,7 @@
                                     <tr>
                                         <th>Sr</th>
                                         <th>Invoice</th>
-                                        <th>Employee Name</th>
+                                        <th>User Name</th>
                                         <th>Supplier Name</th>
                                         <th>Total</th>
                                         <th>Discount</th>
@@ -203,7 +203,7 @@
                                     <tr>
                                         <th>Sr</th>
                                         <th>Invoice</th>
-                                        <th>Employee Name</th>
+                                        <th>User Name</th>
                                         <th>Customer Name</th>
                                         <th>Total</th>
                                         <th>Discount</th>
@@ -422,7 +422,7 @@
                                     '<tr>' +
                                     '<th style="text-align: center;">Sr.</th>' +
                                     '<th style="text-align: center;">Invoice</th>' +
-                                    '<th style="text-align: center;">Employee Name</th>' +
+                                    '<th style="text-align: center;">User Name</th>' +
                                     '<th style="text-align: center;">Supplier Name</th>' +
                                     '<th style="text-align: center;">Total</th>' +
                                     '<th style="text-align: center;">Discount</th>' +
@@ -551,6 +551,7 @@
                                     '<tr>' +
                                     '<th style="text-align: center;">Sr.</th>' +
                                     '<th style="text-align: center;">Invoice</th>' +
+                                    '<th style="text-align: center;">User Name</th>' +
                                     '<th style="text-align: center;">Customer Name</th>' +
                                     '<th style="text-align: center;">Total</th>' +
                                     '<th style="text-align: center;">Discount</th>' +

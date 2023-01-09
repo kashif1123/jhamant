@@ -57,6 +57,7 @@ class PurchaseController extends Controller
     }
     public function post_return_product(Request $request){
         $return= new PurchaseReturn();
+        $return->user_id=Auth::id();
         $return->supplier_invoices_id=$request->sup_inv_id;
         $return->product_id=$request->p_id;
         $return->supplier_id=$request->s_id;
@@ -319,7 +320,8 @@ class PurchaseController extends Controller
             }
     }
     public function dtgetshow_p_return(){
-            $data=PurchaseReturn::select('purchase_returns.id','name','invoice','product','return_qty','return_date','total_receiving_amount','received_amount')
+            $data=PurchaseReturn::select('purchase_returns.id','suppliers.name as name','users.name as user_name','invoice','product','return_qty','return_date','total_receiving_amount','received_amount')
+                ->join('users','users.id','=','purchase_returns.user_id')
                 ->join('suppliers','suppliers.id','=','purchase_returns.supplier_id')
                 ->get();
             try {

@@ -157,7 +157,8 @@
                                     <thead>
                                     <tr>
                                         <th>Sr</th>
-                                        <th>Supplier</th>
+                                        <th>User Name</th>
+                                        <th>Supplier Name</th>
                                         <th>Invoice</th>
                                         <th>Product</th>
                                         <th>Return Quantity</th>
@@ -278,6 +279,8 @@
                                 .prepend (
                                     '<tr>' +
                                     '<th style="text-align: center;">Sr.</th>' +
+                                    '<th style="text-align: center;">User Name</th>' +
+                                    '<th style="text-align: center;">Supplier Name</th>' +
                                     '<th style="text-align: center;">Invoice</th>' +
                                     '<th style="text-align: center;">Product Name</th>' +
                                     '<th style="text-align: center;">Return Quantity</th>' +
@@ -333,6 +336,7 @@
 
                         }
                     },
+                    {data:'user_name','name':'user_name'},
                     {data:'name','name':'suppliers.name'},
                     {data:'invoice','name':'invoice'},
                     {data:'product','name':'product'},
