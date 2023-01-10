@@ -732,7 +732,15 @@
                                                         <table width="100%">
                                                             <tr>
                                                                 <td><nobr style="font-family: Arial, sans-serif;font-size: 12px;">INVOICE: &nbsp;&nbsp; <span style="font-family: Arial, sans-serif;font-size: 12px;" id="r_invoice"></span>  </nobr></td>
+                                                            </tr>
+                                                            <tr>
                                                                 <td><nobr style="font-family: Arial, sans-serif;font-size: 12px;">Customer: &nbsp;&nbsp; <span style="font-family: Arial, sans-serif;font-size: 12px;" id="r_c_name"></span>  </nobr></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><nobr style="font-family: Arial, sans-serif;font-size: 12px;">Employee: &nbsp;&nbsp; <span style="font-family: Arial, sans-serif;font-size: 12px;" id="r_e_name"></span>  </nobr></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><nobr style="font-family: Arial, sans-serif;font-size: 12px;">User Name: &nbsp;&nbsp; <span style="font-family: Arial, sans-serif;font-size: 12px;" id="r_u_name"></span>  </nobr></td>
                                                             </tr>
                                                             <tr>
                                                                 <td><nobr style="font-family: Arial, sans-serif;font-size: 12px;" >Date</nobr></td>
@@ -1532,6 +1540,8 @@
                 $("#total_qty").val('');
                 var customer_id=$(".customer").val();
                 var employee_id=$(".employee").val();
+                var employee_name=$(".employee :selected").closest('optgroup').prop('label');
+                var User_name="{{ user_name() }}";
                 var employee_commission=$('#commission_rs').val();
                 var customer_label=$(".customer :selected").closest('optgroup').prop('label');
                 var s_invoice=$("#invoice").val();
@@ -1641,6 +1651,8 @@
                             $("#r_t_total_bill").text(s_total);
                             $("#r_t_date_of_sale").text(s_date);
                             $("#r_invoice").text(s_invoice);
+                            $("#r_e_name").text(employee_name);
+                            $("#r_u_name").text(User_name);
                             $("#r_t_discount").text(s_discount);
                             $("#r_t_grand_total").text(s_grand_total);
                             $("#r_t_paid").text(s_paid);
@@ -1695,6 +1707,8 @@
 
                 var customer_id=$(".customer").val();
                 var employee_id=$(".employee").val();
+                var employee_name=$(".employee").select2('data')[0]['text'];
+                var User_name="{{ user_name() }}";
                 var employee_commission=$('#commission_rs').val();
                 var customer_label=$(".customer :selected").closest('optgroup').prop('label');
                 var s_invoice=$("#invoice").val();
@@ -1799,6 +1813,8 @@
                             $("#r_t_total_bill").text(parseInt(s_total));
                             $("#r_t_date_of_sale").text(s_date);
                             $("#r_invoice").text(s_invoice);
+                            $("#r_e_name").text(employee_name);
+                            $("#r_u_name").text(User_name);
                             $("#r_t_discount").text(s_discount);
                             $("#r_t_grand_total").text(parseInt(s_grand_total));
                             $("#r_t_paid").text(parseInt(s_paid));

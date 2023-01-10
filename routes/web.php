@@ -79,6 +79,7 @@ Route::group(['middleware' => 'role' ], function() {
         Route::get('/allcustomer', 'SupplierController@allcustomer');
         Route::get('/suppliercontacts', 'SupplierController@suppliercontacts');
         Route::get('/customercontacts', 'SupplierController@customercontacts');
+        Route::get('/employee_commission', 'SupplierController@employee_commission');
         Route::post('/insert_new_supplier', 'SupplierController@insert_new_supplier');
         Route::post('/delete_supplier', 'SupplierController@delete_supplier');
         Route::post('/delete_customer', 'SupplierController@delete_customer');
@@ -100,6 +101,8 @@ Route::group(['middleware' => 'role' ], function() {
         Route::get('/dtgetshowcustomers', 'SupplierController@dtgetshowcustomers');
         Route::get('/dtgetshowmunshis', 'SupplierController@dtgetshowmunshis');
         Route::get('/dtgetshowemployees', 'SupplierController@dtgetshowemployees');
+        Route::get('/dtget_employee_commission', 'SupplierController@dtget_employee_commission');
+        Route::get('/dtget_employee_commission_date', 'SupplierController@dtget_employee_commission_date');
         Route::get('/dtgetshowowners', 'SupplierController@dtgetshowowners');
         Route::post('/dtpostshowcustomers', 'SupplierController@dtpostshowcustomers');
         Route::get('/dtgetshowsupplierinvoices_date', 'SupplierController@dtgetshowsupplierinvoices_date');

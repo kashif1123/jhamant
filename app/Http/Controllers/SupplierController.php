@@ -12,6 +12,7 @@ use App\DataTables\EmployeeEditorDataTableEditor;
 use App\DataTables\SupplierContactDataTablesEditor;
 use App\DataTables\SupplierDataTablesEditor;
 use App\Employee;
+use App\EmployeeCommission;
 use App\EmployeeContact;
 use App\Ledger;
 use App\Munshi;
@@ -33,6 +34,7 @@ class SupplierController extends Controller
         $accounts=BankAccount::all();
         return view('admin.supplier.newsupplier',compact('accounts'));
     }
+
     public function supplierinvoices(){
         return view('admin.supplier.supplierinvioices');
     }
@@ -77,6 +79,31 @@ class SupplierController extends Controller
     public function allemployees(){
         return view('admin.supplier.allemployees');
     }
+    public function employee_commission(){
+        return view('admin.supplier.employee_commission');
+    }
+    public function dtget_employee_commission(){
+        $data=EmployeeCommission::select('name','employee_commissions.id')
+//            ->whereDate('employee_commissions.created_at','=',$date)
+            ->join('employees','employees.id','=','employee_commissions.employee_id')->groupBy('employee_id')->selectRaw('sum(employee_commission) as sum')->get();
+//        dd($data);
+        try {
+            return DataTables::of($data)->make(true);
+        } catch (\Exception $e) {
+        }
+    }
+
+    public function dtget_employee_commission_date(Request $request){
+        $data=EmployeeCommission::select('name','employee_commissions.id')
+            ->whereBetween('employee_commissions.created_at',[date('Y-m-d H:i:s',strtotime($request->min)),date('Y-m-d H:i:s',strtotime($request->max))])
+            ->join('employees','employees.id','=','employee_commissions.employee_id')->groupBy('employee_id')->selectRaw('sum(employee_commission) as sum')->get();
+        try {
+            return DataTables::of($data)->make(true);
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+
+    }
     public function customerinvoices(){
         return view('admin.supplier.customerinvoices');
 
@@ -111,6 +138,7 @@ class SupplierController extends Controller
         } catch (\Exception $e) {
         }
     }
+
 
 
     public function dtget_s_contacts(){

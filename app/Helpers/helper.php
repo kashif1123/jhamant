@@ -13,4 +13,8 @@ function last_balance($id,$type){
         return null;
     }
 }
+function user_name(){
+    $user= \App\User::find(Auth::id());
+    return $user->name;
+}
 ?>

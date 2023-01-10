@@ -1105,6 +1105,9 @@
                                                     <a  href="{{ url('supplier/allcustomer') }}" class="kt-menu__link "><i class="kt-menu__link-icon flaticon2-user-1"></i><span class="kt-menu__link-text">Customers Report</span></a>
                                                 </li>
                                                 <li class="kt-menu__item">
+                                                    <a  href="{{ url('supplier/employee_commission') }}" class="kt-menu__link "><i class="kt-menu__link-icon flaticon2-user-1"></i><span class="kt-menu__link-text">Employee Commission Report</span></a>
+                                                </li>
+                                                <li class="kt-menu__item">
                                                     <a  href="{{ url('bank/allbank') }}" class="kt-menu__link "><i class="kt-menu__link-icon flaticon2-user-1"></i><span class="kt-menu__link-text">Bank Accounts Report</span></a>
                                                 </li>
                                                 <li class="kt-menu__item">
