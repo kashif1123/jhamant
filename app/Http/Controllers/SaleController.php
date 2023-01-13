@@ -364,18 +364,15 @@ class SaleController extends Controller
             $customer->customer_id = $request->customer;
             $customer->customer_person = $cus_person;
             $customer->user_id = Auth::id();
-            $customer->invoice = Auth::id()."".$request->invoice;
+            $customer->invoice = Auth::id().$request->invoice;
             $customer->total = $request->total;
             $customer->date = date('Y-m-d H:i:s', strtotime($request->datetime));
             $customer->paid = $request->paid;
             $customer->due = $request->remaining;
             $customer->discount = $request->discount;
             $customer->grand_total = $request->grand_total;
-            $customer->commission = $request->commission;
-            $customer->bardana = $request->bardana;
-            $customer->carriage = $request->carriage;
-            $customer->truck_no = $request->truck_no;
-            $customer->no_of_bags = $request->no_of_bags;
+            $customer->employee_id = $request->employee;
+            $customer->employee_commission = $request->employee_commission;
             $customer->save();
             $total_sold_qty=0;
             $for_desc="Product Rates=\n";
@@ -392,7 +389,7 @@ class SaleController extends Controller
                             $purchase_stock->quantity_remaining-= $stock_sold;
                             $purchase_stock->update();
                             $sold_products = new Sale();
-                            $sold_products->invoice_no = $request->invoice;
+                            $sold_products->invoice_no = Auth::id().$request->invoice;
                             $sold_products->customer_invoices_id = $customer->id;
                             $sold_products->product_id = $data['id'];
                             $sold_products->quantity = $stock_sold;
@@ -409,7 +406,7 @@ class SaleController extends Controller
                             $purchase_stock->update();
                             $sale_qty=$stock_sold-$sss;
                             $sold_products = new Sale();
-                            $sold_products->invoice_no = $request->invoice;
+                            $sold_products->invoice_no = Auth::id().$request->invoice;
                             $sold_products->customer_invoices_id = $customer->id;
                             $sold_products->product_id = $data['id'];
                             $sold_products->quantity = $sale_qty;
@@ -423,7 +420,7 @@ class SaleController extends Controller
                             $purchase_stock->quantity_remaining-=$stock_sold;
                             $purchase_stock->update();
                             $sold_products = new Sale();
-                            $sold_products->invoice_no = $request->invoice;
+                            $sold_products->invoice_no = Auth::id().$request->invoice;
                             $sold_products->customer_invoices_id = $customer->id;
                             $sold_products->product_id = $data['id'];
                             $sold_products->quantity = $stock_sold;
@@ -447,8 +444,8 @@ class SaleController extends Controller
             }else{
                 $customerrr = Customer::find($request->customer);
             }
-            $description = "Product(s) were Sold to $cus_person : $customerrr->name with a total bill of $request->grand_total against Invoice: $request->invoice.
-         \nProduct Weight=$total_sold_qty || No. of bags=$request->no_of_bags  ||  Bardana Amount=$request->bardana  ||  Carriage=$request->carriage || Truck No.=$request->truck_no.
+            $description = "Product(s) were Sold to $cus_person : $customerrr->name with a total bill of $request->grand_total against Invoice:". Auth::id().$request->invoice.
+         "\nProduct Weight=$total_sold_qty || No. of bags=$request->no_of_bags  ||  Bardana Amount=$request->bardana  ||  Carriage=$request->carriage || Truck No.=$request->truck_no.
          \n$for_desc";
 
 
@@ -520,7 +517,7 @@ class SaleController extends Controller
                 $employee_commission=new EmployeeCommission();
                 $employee_commission->user_id=Auth::id();
                 $employee_commission->employee_id=$request->employee;
-                $employee_commission->invoice_no=Auth::id()."".$request->invoice;
+                $employee_commission->invoice_no=Auth::id().$request->invoice;
                 $employee_commission->employee_commission=$request->employee_commission;
                 $employee_commission->save();
             }

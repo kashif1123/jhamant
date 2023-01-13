@@ -388,7 +388,7 @@ class PurchaseController extends Controller
             $sup_invoices->supplier_id=$request->supplier;
             $sup_invoices->user_id=Auth::id();
             $sup_invoices->supplier_person=$sup_person;
-            $sup_invoices->invoice=Auth::id()."".$request->invoice;
+            $sup_invoices->invoice=Auth::id().$request->invoice;
             $sup_invoices->total=$request->total;
             $sup_invoices->paid=$request->paid;
             $sup_invoices->date_of_purchase=date('Y-m-d H:i:s',strtotime($request->datetime));
@@ -418,7 +418,7 @@ class PurchaseController extends Controller
             }else{
                 $supplier=Supplier::find($request->supplier);
             }
-            $description="Product(s) were purchased with a total bill of $request->grand_total from $sup_person: $supplier->name against Invoice: $request->invoice.";
+            $description="Product(s) were purchased with a total bill of $request->grand_total from $sup_person: $supplier->name against Invoice:".Auth::id().$request->invoice;
 
             $supplier_ledger=Ledger::where('person_type','=',$sup_person)->where('person_id','=',$supplier->id)->get()->last();
             $ledger= new Ledger();
@@ -456,7 +456,7 @@ class PurchaseController extends Controller
                 $account->update();
 
 //            dd($request->account, $request->all(), $account);
-                $bank_desc = "Product(s) were purchased with a total bill of $request->grand_total from Bank Branch:$account->branch_name against Invoice: $request->invoice.";
+                $bank_desc = "Product(s) were purchased with a total bill of $request->grand_total from Bank Branch:$account->branch_name against Invoice:". Auth::id().$request->invoice;
                 $bankLedger= new Ledger();
                 $bankLedger->person_type='Bank';
                 $bankLedger->transaction_type='purchase';

@@ -483,7 +483,7 @@
                     '<th>Product Name</th>' +
                     '<th>Quantity</th>' +
                     '<th>Sale Rate</th>' +
-                    '<th>Discount</th>' +
+                    // '<th>Discount</th>' +
                     '<th>Total</th>' +
                     '</tr></thead>' +
                     '</tbody>';
@@ -495,7 +495,7 @@
                             '<td>'+d.subtable_data[i].name+'</td>' +
                             '<td>'+d.subtable_data[i].quantity+'</td>' +
                             '<td>'+d.subtable_data[i].sale_price+'</td>' +
-                            '<td>'+d.subtable_data[i].p_discount+'</td>' +
+                            // '<td>'+d.subtable_data[i].p_discount+'</td>' +
                             '<td>'+parseFloat(d.subtable_data[i].sale_price *d.subtable_data[i].quantity - ((d.subtable_data[i].sale_price *d.subtable_data[i].quantity)*(d.subtable_data[i].p_discount / 100)))+'</td>' +
                             '</tr>';
                     }
@@ -518,6 +518,7 @@
                 }
                 else {
                     // Open this row
+                    console.log(row.data().invoice);
                     $.ajax({
                         url:'{{ url('sale/dtgetsale_report_subtable') }}',
                         type:'get',
