@@ -1364,6 +1364,7 @@ $sum_total_paying_amount+=$o_pay->paying_amount;
                                         <tr style="background-color: rgba(165,165,171,0.25)">
                                             <td>Margin Profit +</td>
                                             <td>WithHolding Tax Profit -</td>
+                                            <td>Employees Commission -</td>
                                             <td>Expenses = </td>
                                             <td>Net Profit</td>
                                         </tr>
@@ -1372,8 +1373,9 @@ $sum_total_paying_amount+=$o_pay->paying_amount;
                                             <tr>
                                                 <td>{{$sum_margin}}</td>
                                                 <td>{{$withholding_profit}}</td>
+                                                <td>{{$total_employee_commission}}</td>
                                                 <td>{{$total_expanses}}</td>
-                                                <td>{{$net_profit}}</td>
+                                                <td>{{$net_profit - $total_employee_commission}}</td>
                                             </tr>
                                         </tbody>
                                     </table>

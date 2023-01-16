@@ -1,12 +1,13 @@
 @extends('mainpages.maindmin')
+
+
 @section('css')
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     <style>
-
+        .note-editor {
+            width: 100%;
+        }
     </style>
-    <script type="text/javascript">
-
-    </script>
-
 @endsection
 @section('content')
 
@@ -237,6 +238,16 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>Policies</label>
+                                                    <div class="input-group">
+{{--                                                        <div class="form-control">--}}
+                                                        <div id="summernote">Hello Summernote</div>
+{{--                                                        </div>--}}
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
 
                                     </div>
@@ -321,10 +332,25 @@
 
         @endsection
         @section('scripts')
+            <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
             <script src="{{ url('assets/js/demo10/pages/crud/forms/widgets/select2.js') }}" type="text/javascript"></script>
 
             <script>
                 $(document).ready(function (e) {
+                    $(document).ready(function() {
+                        $('#summernote').summernote({
+                            height: 300,
+                            toolbar: [
+                                [ 'style', [ 'style' ] ],
+                                [ 'font', [ 'bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear'] ],
+                                [ 'fontname', [ 'fontname' ] ],
+                                [ 'fontsize', [ 'fontsize' ] ],
+                                [ 'color', [ 'color' ] ],
+                                [ 'para', [ 'ol', 'ul', 'paragraph', 'height' ] ],
+                                [ 'view', [ 'undo', 'redo', 'fullscreen', 'codeview', 'help' ] ]
+                            ]
+                        });
+                    });
 
                     $(document).on('click','.barcodeGenerate',function (e) {
                         var barcode=Math.floor(1000000000000 + Math.random() * 9000000000000);
