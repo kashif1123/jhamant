@@ -584,7 +584,7 @@
                                     {{--FULL PAGE INVOICE--}}
 
                                     {{--THERMAL INVOICE--}}
-                                    <div class="my_invoice" style="display: none;">
+                                    <div class="my_invoice" >
 
 
 
@@ -729,6 +729,7 @@
                                                                 <td style="font-family: Arial, sans-serif;font-size: 14px;" align="center" id="Idatetime"></td>
                                                             </tr>
                                                         </table>
+                                                        <div style="width: 100%; border-bottom: 2px solid black;"></div>
                                                         <table width="100%">
                                                             <tr>
                                                                 <td><nobr style="font-family: Arial, sans-serif;font-size: 12px;">INVOICE: &nbsp;&nbsp; <span style="font-family: Arial, sans-serif;font-size: 12px;" id="r_invoice"></span>  </nobr></td>
@@ -737,10 +738,8 @@
                                                                 <td><nobr style="font-family: Arial, sans-serif;font-size: 12px;">Customer: &nbsp;&nbsp; <span style="font-family: Arial, sans-serif;font-size: 12px;" id="r_c_name"></span>  </nobr></td>
                                                             </tr>
                                                             <tr>
-                                                                <td><nobr style="font-family: Arial, sans-serif;font-size: 12px;">Employee: &nbsp;&nbsp; <span style="font-family: Arial, sans-serif;font-size: 12px;" id="r_e_name"></span>  </nobr></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><nobr style="font-family: Arial, sans-serif;font-size: 12px;">User Name: &nbsp;&nbsp; <span style="font-family: Arial, sans-serif;font-size: 12px;" id="r_u_name"></span>  </nobr></td>
+                                                                <td><nobr style="font-family: Arial, sans-serif;font-size: 12px;">Emp: &nbsp;&nbsp; <span style="font-family: Arial, sans-serif;font-size: 12px;" id="r_e_name"></span>  </nobr></td>&nbsp;&nbsp;
+                                                                <td><nobr style="font-family: Arial, sans-serif;font-size: 12px;">Usr: &nbsp; <span style="font-family: Arial, sans-serif;font-size: 12px;" id="r_u_name"></span>  </nobr></td>
                                                             </tr>
                                                             <tr>
                                                                 <td><nobr style="font-family: Arial, sans-serif;font-size: 12px;" >Date</nobr></td>
@@ -768,7 +767,7 @@
                                                             </tr>
                                                             </tbody>
                                                         </table>
-                                                        <table align="right" style="width: 150px;margin-bottom:20px;">
+                                                        <table align="right" style="width: 150px;">
                                                             <tr>
                                                                 <td><b style="font-family: Arial, sans-serif;font-size: 12px;">Total</b></td>
                                                                 <td><b style="font-family: Arial, sans-serif;font-size: 10px;" id="r_t_total_bill">0.00</b></td>
@@ -791,8 +790,14 @@
                                                                 <td><b style="font-family: Arial, sans-serif;font-size: 10px;" id="r_t_remaining">0.00</b></td>
                                                             </tr>
                                                         </table>
+                                                        <table align="left" style="margin-bottom:20px; width: 100%; ">
+                                                            <tr>
+                                                                <td style="font-family: Arial, sans-serif;font-size: 10px;">Total Items Count : <span id="items_count"></span> </td>
+                                                            </tr>
+                                                        </table>
                                                         {{--                                                        <br>--}}
                                                     </td>
+
                                                     <table  border="0" style="margin: auto;">
                                                         <tr>
                                                             <td  align="center" style="font-weight: bolder;font-size: 18px; font-family: Arial, sans-serif">POLICIES</td>
@@ -996,11 +1001,24 @@
                     }
                 });
             }
-
+            var id=$(".customer").val();
+            var label=$(".customer :selected").closest('optgroup').prop('label');
+            $.ajax({
+                url:'{{url('sale/fetch_customer_data')}}',
+                type: 'post',
+                data:{'id':id ,'label':label ,'_token':'{{csrf_token()}}'},
+                success:function (data) {
+                    if (data.data !== null){
+                        $('#r_c_name').text(data.data.name);
+                    }
+                },
+                error:function (error) {
+                    console.log(error.responseText);
+                }
+            });
             $('.customer').change(function () {
                 var id=$(".customer").val();
                 var label=$(".customer :selected").closest('optgroup').prop('label');
-                // alert(id);
                 if (id !== 'defaultsupplier'){
                     $.ajax({
                         url:'{{url('sale/fetch_customer_balance')}}',
@@ -1023,7 +1041,7 @@
                     $.ajax({
                         url:'{{url('sale/fetch_customer_data')}}',
                         type: 'post',
-                        data:{'id':id ,'_token':'{{csrf_token()}}'},
+                        data:{'id':id ,'label':label ,'_token':'{{csrf_token()}}'},
                         success:function (data) {
                             console.log(data);
                             if (data.data !== null){
@@ -1658,7 +1676,9 @@
                             $("#r_t_paid").text(s_paid);
                             $("#r_t_remaining").text(s_remaining);
                             var myTable= '';
+                            var totalQty = 0
                             for(var i = 0; i < s_products_data.length; i++){
+                                totalQty += parseFloat(s_products_data[i].qty);
                                 myTable += '<tr><td style="padding:3px; text-align: left;">' + s_products_data[i].product + '</td>';
                                 myTable += '<td style="padding: 3px; text-align: center;">' + s_products_data[i].sale_price + '</td>';
                                 myTable += '<td style="padding: 3px; text-align: center;">' + s_products_data[i].qty + '</td>';
@@ -1666,6 +1686,7 @@
                                 myTable += '<td style="padding: 3px; text-align: center;">' + s_products_data[i].amount + '</td></tr>';
                             }
                             $('.carttable1').html(myTable);
+                            $('#items_count').text(totalQty);
                             //     var myTable = '';
                             //     for (var i = 0; i < data1.length; i++) {
                             //         myTable += '<tr><td>' + data1[i].product_id + '</td>';
@@ -1820,7 +1841,9 @@
                             $("#r_t_paid").text(parseInt(s_paid));
                             $("#r_t_remaining").text(parseInt(s_remaining));
                             var myTable= '';
+                            var totalQty = 0;
                             for(var i = 0; i < s_products_data.length; i++){
+                                totalQty += parseFloat(s_products_data[i].qty);
                                 myTable += '<tr><td style="padding:3px; text-align: left;">' + s_products_data[i].product + '</td>';
                                 myTable += '<td style="padding: 3px; text-align: center;">' + s_products_data[i].sale_price + '</td>';
                                 myTable += '<td style="padding: 3px; text-align: center;">' + s_products_data[i].qty + '</td>';
@@ -1828,6 +1851,7 @@
                                 myTable += '<td style="padding: 3px; text-align: center;">' + parseInt(s_products_data[i].amount) + '</td></tr>';
                             }
                             $('.carttable1').html(myTable);
+                            $('#items_count').text(totalQty);
                             //     var myTable = '';
                             //     for (var i = 0; i < data1.length; i++) {
                             //         myTable += '<tr><td>' + data1[i].product_id + '</td>';

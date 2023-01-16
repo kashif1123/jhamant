@@ -134,7 +134,11 @@ class SaleController extends Controller
         return response(["data"=>$previous_balance]);
     }
     public function fetch_customer_data(Request $request){
+        if ($request->label=="Suppliers"){
+        $customer=Supplier::find($request->id);
+        }else{
         $customer=Customer::find($request->id);
+        }
         return response(["data"=>$customer]);
     }
     public function fetch_company_products(Request $request){
