@@ -790,9 +790,11 @@
                                                                 <td><b style="font-family: Arial, sans-serif;font-size: 10px;" id="r_t_remaining">0.00</b></td>
                                                             </tr>
                                                         </table>
-                                                        <table align="left" style="margin-bottom:20px; width: 100%; ">
+                                                        <table align="left" style="margin-bottom:20px; padding-top: 20px; ">
                                                             <tr>
-                                                                <td style="font-family: Arial, sans-serif;font-size: 10px;">Total Items Count : <span id="items_count"></span> </td>
+                                                                <td style="font-family: Arial, sans-serif;font-size: 10px;">Items Count :
+                                                                    <br><div style="text-align: center;padding: 6px 20px;font-size: 20px;" id="items_count"></div>
+                                                                </td>
                                                             </tr>
                                                         </table>
                                                         {{--                                                        <br>--}}
