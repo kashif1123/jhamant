@@ -584,7 +584,7 @@
                                     {{--FULL PAGE INVOICE--}}
 
                                     {{--THERMAL INVOICE--}}
-                                    <div class="my_invoice" >
+                                    <div class="my_invoice"  style="display: none;">
 
 
 
