@@ -346,6 +346,13 @@
                                         <td><b style="font-family: Arial, sans-serif;font-size: 10px;" id="r_t_remaining">0.00</b></td>
                                     </tr>
                                 </table>
+                                <table align="left" style="margin-bottom:20px; padding-top: 20px; ">
+                                    <tr>
+                                        <td style="font-family: Arial, sans-serif;font-size: 10px;">Items Count :
+                                            <br><div style="text-align: center;padding: 6px 20px;font-size: 20px;" id="items_count"></div>
+                                        </td>
+                                    </tr>
+                                </table>
                                 </br></br>
 
 
@@ -356,20 +363,20 @@
                                 </tr>
 
                                 <tr>
-                                    <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">1:-All Prices are fixed.</td></td>
+                                    <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">1:-All Prices are fixed.</td>
                                 </tr>
                                 <tr>
-                                    <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">2:-No Cash Refund for any exchange and return.</td></td>
+                                    <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">2:-No Cash Refund for any exchange and return.</td>
                                 </tr>
                                 <tr>
-                                    <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">3:-Original Receipt is required for exchange and claim within 7 days of purchase.</td></td>
+                                    <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">3:-Original Receipt is required for exchange and claim within 7 days of purchase.</td>
                                 </tr>
                                 <tr>
-                                    <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">4:-Clearance Sale Item and cut pieces are not exchangeable.</td></td>
+                                    <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">4:-Clearance Sale Item and cut pieces are not exchangeable.</td>
                                 </tr>
                                 </br>
                                 <tr>
-                                    <td align="left" style=" border: 1px solid black; font-family: Arial, sans-serif;font-size: 12px;">A Software by BRAINIAC CS(0303-2600069)</td></td>
+                                    <td align="left" style=" border: 1px solid black; font-family: Arial, sans-serif;font-size: 12px;">A Software by BRAINIAC CS(0303-2600069)</td>
                                 </tr>
 
                             </table>
@@ -815,6 +822,7 @@
                     },
                     success: function (data) {
                         console.log(data.s_products_data);
+                        console.log(invoice_data);
                         $("#r_invoice").text(invoice_data.invoice);
                         $("#r_t_date_of_sale").text(invoice_data.date);
                         $("#r_c_name").text(invoice_data.name);
@@ -825,8 +833,10 @@
                         $("#r_t_remaining").text(invoice_data.due);
                         $("#r_t_truck").text(invoice_data.truck_no);
                         var myTable= '';
+                        var total_qty = 0;
                         if(data){
                         for(var i = 0; i < data.s_products_data.length; i++){
+                            total_qty +=parseFloat(data.s_products_data[i].quantity);
                             myTable += '<tr><td style="padding:3px; text-align: left;">' + data.s_products_data[i].name + '</td>';
                             myTable += '<td style="padding: 3px; text-align: center;">' + data.s_products_data[i].sale_price + '</td>';
                             myTable += '<td style="padding: 3px; text-align: center;">' + data.s_products_data[i].quantity + '</td>';
@@ -834,6 +844,7 @@
                             myTable += '<td style="padding: 3px; text-align: center;">' + parseFloat(parseFloat(data.s_products_data[i].sale_price *data.s_products_data[i].quantity - ((data.s_products_data[i].sale_price *data.s_products_data[i].quantity)*(data.s_products_data[i].p_discount / 100)))) + '</td></tr>';
                         }}
                         $('.carttable1').html(myTable);
+                        $('#items_count').text(total_qty);
                         setTimeout(function () {
                             var html = $('.my_invoice').html();
                             var myWindow = window.open("", '', 'width=900,height=800');

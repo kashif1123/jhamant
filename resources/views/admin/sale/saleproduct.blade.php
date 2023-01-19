@@ -807,15 +807,21 @@
 
                                                         <tr>
                                                             {{--                                                            <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">1:-All Prices are fixed.</td></td>--}}
-                                                            <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">1:-Exchange and return is accepted with in one month along with the invoice.</td></td>
+                                                            <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">1:-All Prices are fixed.</td>
                                                         </tr>
                                                         <tr>
                                                             {{--                                                            <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">2:-No Cash Refund for any exchange and return.</td></td>--}}
-                                                            <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">2:-Sale items are not exchange and returnable.</td></td>
+                                                            <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">2:-No Cash Refund for any exchange and return.</td>
                                                         </tr>
                                                         <tr>
-                                                            {{--                                                            <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">3:-Original Receipt is required for exchange and claim within 7 days of purchase.</td></td>--}}
-                                                            <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">3:-Pure wool must be dry cleaned.</td></td>
+                                                            <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">3:-Pure wool must be dry cleaned.</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">4:-Clearance Sale Item and cut pieces are not exchangeable.</td>
+                                                        </tr>
+                                                        </br>
+                                                        <tr>
+                                                            <td align="left" style=" border: 1px solid black; font-family: Arial, sans-serif;font-size: 12px;">A Software by BRAINIAC CS(0303-2600069)</td>
                                                         </tr>
                                                         {{--                                                        <tr>--}}
                                                         {{--                                                            <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">4:-Clearance Sale Item and cut pieces are not exchangeable.</td></td>--}}
@@ -1671,7 +1677,7 @@
                             $("#r_t_total_bill").text(s_total);
                             $("#r_t_date_of_sale").text(s_date);
                             $("#r_invoice").text(s_invoice);
-                            $("#r_e_name").text(employee_name);
+                            $("#r_e_name").text("{{\Illuminate\Support\Facades\Auth::id()}}"+employee_name);
                             $("#r_u_name").text(User_name);
                             $("#r_t_discount").text(s_discount);
                             $("#r_t_grand_total").text(s_grand_total);
@@ -1835,7 +1841,7 @@
 
                             $("#r_t_total_bill").text(parseInt(s_total));
                             $("#r_t_date_of_sale").text(s_date);
-                            $("#r_invoice").text(s_invoice);
+                            $("#r_invoice").text("{{\Illuminate\Support\Facades\Auth::id()}}"+s_invoice);
                             $("#r_e_name").text(employee_name);
                             $("#r_u_name").text(User_name);
                             $("#r_t_discount").text(s_discount);
