@@ -289,18 +289,24 @@
                                         <td style="font-family: Arial, sans-serif;font-size: 14px;" align="center" id="Idatetime"></td>
                                     </tr>
                                 </table>
+                                <div style="width: 100%; border-bottom: 2px solid black;"></div>
                                 <table width="100%">
                                     <tr>
-                                        <td><nobr style="font-family: Arial, sans-serif;font-size: 12px;">INVOICE No.:</nobr></td>
+                                        <td><nobr style="font-family: Arial, sans-serif;font-size: 12px;">INVOICE:</nobr></td>
                                         <td style="font-family: Arial, sans-serif;font-size: 12px;" id="r_invoice"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><nobr style="font-family: Arial, sans-serif;font-size: 12px;">Customer:</nobr></td>
+                                        <td style="font-family: Arial, sans-serif;font-size: 12px;" id="r_c_name"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><nobr style="font-family: Arial, sans-serif;font-size: 12px;">Emp: &nbsp;&nbsp; <span style="font-family: Arial, sans-serif;font-size: 12px;" id="r_e_name"></span>  </nobr></td>&nbsp;&nbsp;
+                                        <td><nobr style="font-family: Arial, sans-serif;font-size: 12px;">Usr: &nbsp; <span style="font-family: Arial, sans-serif;font-size: 12px;" id="r_u_name"></span>  </nobr></td>
                                     </tr>
                                     <tr>
                                         <td><nobr style="font-family: Arial, sans-serif;font-size: 12px;" >Date</nobr></td>
                                         <td style="font-family: Arial, sans-serif;font-size: 12px;" id="r_t_date_of_sale"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><nobr style="font-family: Arial, sans-serif;font-size: 12px;">Customer name</nobr></td>
-                                        <td style="font-family: Arial, sans-serif;font-size: 12px;" id="r_c_name"></td>
                                     </tr>
                                 </table>
                                 <table border="1" style="margin-left: -9px;border: 1px solid black; border-collapse: collapse" class="table table-bordered mycart1">
@@ -826,6 +832,8 @@
                         $("#r_invoice").text(invoice_data.invoice);
                         $("#r_t_date_of_sale").text(invoice_data.date);
                         $("#r_c_name").text(invoice_data.name);
+                        $("#r_e_name").text(invoice_data.employee);
+                        $("#r_u_name").text(invoice_data.user_name);
                         $("#r_t_total_bill").text(invoice_data.total);
                         $("#r_t_discount").text(invoice_data.discount);
                         $("#r_t_grand_total").text(invoice_data.grand_total);
@@ -840,7 +848,11 @@
                             myTable += '<tr><td style="padding:3px; text-align: left;">' + data.s_products_data[i].name + '</td>';
                             myTable += '<td style="padding: 3px; text-align: center;">' + data.s_products_data[i].sale_price + '</td>';
                             myTable += '<td style="padding: 3px; text-align: center;">' + data.s_products_data[i].quantity + '</td>';
-                            myTable += '<td style="padding: 3px; text-align: center;">' + data.s_products_data[i].p_discount + '</td>';
+                            if (isNaN(data.s_products_data[i].p_discount) || data.s_products_data[i].p_discount == null){
+                                myTable += '<td style="padding: 3px; text-align: center;">' + 0 + '</td>';
+                            }else{
+                                myTable += '<td style="padding: 3px; text-align: center;">' + parseFloat(data.s_products_data[i].p_discount) + '</td>';
+                            }
                             myTable += '<td style="padding: 3px; text-align: center;">' + parseFloat(parseFloat(data.s_products_data[i].sale_price *data.s_products_data[i].quantity - ((data.s_products_data[i].sale_price *data.s_products_data[i].quantity)*(data.s_products_data[i].p_discount / 100)))) + '</td></tr>';
                         }}
                         $('.carttable1').html(myTable);
