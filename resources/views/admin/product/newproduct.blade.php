@@ -396,8 +396,8 @@
                 $(document).ready(function (e) {
                 $('.selectUnit').select2();
                     $(document).on('click','.barcodeGenerate',function (e) {
-                        var barcode=Math.floor(1000000000000 + Math.random() * 9000000000000);
-                        $('#barcode').val(barcode);
+                        var barcode=Math.floor(100000000 + Math.random() * 900000000);
+                        $('#barcode').val(parseFloat(barcode));
                     });
                     $("#sale").keypress(function(e) {
                         if(e.which == 13) {
