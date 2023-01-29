@@ -279,7 +279,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-1">
                                                         <div class="form-group">
                                                             <label class="change_qty_label" >Quantity</label>
                                                             <input type="number" min="0" value="1" class="select_qty triggeraddbutton form-control" id="qty" placeholder="Quantity">
@@ -300,16 +300,16 @@
                                                     {{--                                                    <span class="form-text error-alert text-danger">You entered quantity.</span>--}}
                                                     {{--                                                </div>--}}
                                                     {{--                                            </div>--}}
-                                                    {{--                                            <div class="col-md-3">--}}
-                                                    {{--                                                <div class="form-group">--}}
-                                                    {{--                                                    <label>Discount %</label>--}}
-                                                    {{--                                                    <input type="number" autocomplete="off" value="0" max="100" class="triggeraddbutton form-control" id="p_discount" placeholder="Discount"--}}
-                                                    {{--                                                           onblur="if(this.value==''){ this.value='0';}"--}}
-                                                    {{--                                                           onfocus="if(this.value=='0'){ this.value='';}"--}}
-                                                    {{--                                                    >--}}
-                                                    {{--                                                    <span class="form-text error-alert text-danger">You entered invalid sale price.</span>--}}
-                                                    {{--                                                </div>--}}
-                                                    {{--                                            </div>--}}
+{{--                                                                                                <div class="col-md-3">--}}
+{{--                                                                                                    <div class="form-group">--}}
+{{--                                                                                                        <label>Discount %</label>--}}
+{{--                                                                                                        <input type="number" autocomplete="off" value="0" max="100" class="triggeraddbutton form-control" id="p_discount" placeholder="Discount"--}}
+{{--                                                                                                               onblur="if(this.value==''){ this.value='0';}"--}}
+{{--                                                                                                               onfocus="if(this.value=='0'){ this.value='';}"--}}
+{{--                                                                                                        >--}}
+{{--                                                                                                        <span class="form-text error-alert text-danger">You entered invalid sale price.</span>--}}
+{{--                                                                                                    </div>--}}
+{{--                                                                                                </div>--}}
                                                     <div class="col-md-2">
                                                         <div class="form-group">
                                                             <label>Sale Price</label>
@@ -335,7 +335,17 @@
                                                     <div class="col-md-2">
                                                         <div class="form-group">
                                                             <label>Sale (Rs)</label>
-                                                            <input type="text" readonly style="background-color: rgb(146 248 152 / 92%) !important" class="form-control" id="sale_rs" placeholder="Sale RS">
+                                                            <input type="numb" readonly style="background-color: rgb(146 248 152 / 92%) !important" class="form-control" id="sale_rs" placeholder="Sale RS">
+                                                            <span class="form-text error-alert text-danger">You entered quantity.</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group">
+                                                            <label>Discount (Rs)</label>
+                                                            <input type="number" style="background-color: rgba(241,226,172,0.92) !important" value="0" class="triggeraddbutton form-control" id="discount_rs" placeholder="Discount RS"
+                                                                   onblur="if(this.value==''){ this.value='0';}"
+                                                                   onfocus="if(this.value=='0'){ this.value='';}"
+                                                            >
                                                             <span class="form-text error-alert text-danger">You entered quantity.</span>
                                                         </div>
                                                     </div>
@@ -1402,11 +1412,17 @@
                 var available_qty=parseFloat($("#total_qty").val());
                 var qty=parseFloat($("#qty").val());
                 // var p_discount=parseFloat($("#p_discount").val());
+                var discount_rs=parseFloat($("#discount_rs").val());
                 //Validation for cart
                 if (qty > available_qty){
                     $('#qty').addClass('is-invalid').removeClass('is-valid').closest('div').children('.form-text').text('Not enough stock available.').addClass('text-danger').show();
                 }  else {
                     $('#qty').removeClass('is-invalid').addClass('is-valid').closest('div').children('.form-text').text('').addClass('text-danger').hide();
+                }
+                if (discount_rs > s_price){
+                    $('#discount_rs').addClass('is-invalid').removeClass('is-valid').closest('div').children('.form-text').text('Cant give more discount than sale price').addClass('text-danger').show();
+                }  else {
+                    $('#discount_rs').removeClass('is-invalid').addClass('is-valid').closest('div').children('.form-text').text('').addClass('text-danger').hide();
                 }
                 if (product_id == 'default' || product_id == null) {
                     $('.product_id').addClass('is-invalid').removeClass('is-valid').closest('div').children('.form-text').text('Select a Product.').addClass('text-danger').show();
@@ -1422,8 +1438,9 @@
                 var p_discount=0;
                 // }
                 if ($('.is-invalid').length<1) {
-                    var p_total= parseFloat(qty * s_price);
-                    var p_discount= parseFloat(qty * $('#sale_rs').val());
+                    var p_total= parseFloat(qty * (s_price-discount_rs));
+                    // var p_discount= parseFloat(qty * $('#sale_rs').val());
+                    var p_discount= parseFloat(qty * discount_rs) + parseFloat(qty * $('#sale_rs').val());
                     // var p_total_calculation=parseFloat(p_discount*p_total/100);
                     var p_g_total=parseFloat(p_total);
                    var ss_price=parseFloat($("#s_price").val() * qty);
@@ -1443,11 +1460,13 @@
                     $('#s_price').removeClass('is-invalid').removeClass('is-valid').closest('div').children('.form-text').text('').addClass('text-danger').hide();
                     $('#total_qty').removeClass('is-invalid').removeClass('is-valid').closest('div').children('.form-text').text('').addClass('text-danger').hide();
                     $('#qty').removeClass('is-invalid').removeClass('is-valid').closest('div').children('.form-text').text('').addClass('text-danger').hide();
+                    $('#discount_rs').removeClass('is-invalid').removeClass('is-valid').closest('div').children('.form-text').text('').addClass('text-danger').hide();
                     $("#s_price").val('');
                     $("#sale_percentage").val('');
                     $("#sale_rs").val('');
                     $("#total_qty").val('');
                     $("#p_discount").val(0);
+                    $("#discount_rs").val(0);
                     $(".product_id").val('default').change();
                     $("#qty").val(1);
                     $('.product_id').click();
