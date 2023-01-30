@@ -28,7 +28,7 @@ class SaleController extends Controller
         $accounts=BankAccount::all();
         $companies=Company::all();
         $products=Product::where('total_qty','>',0)->get();
-        $employees=Employee::all();
+        $employees=Employee::where('status','=','enable')->get();
         return view('admin.sale.saleproduct',compact('customers','products','accounts','suppliers','companies','employees'));
     }
     public function randomnumber(Request $request){

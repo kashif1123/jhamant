@@ -288,6 +288,16 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <div class="form-group">
+                                                            <label>Discount (Rs)</label>
+                                                            <input type="number" style="background-color: rgba(241,226,172,0.92) !important" value="0" class="triggeraddbutton form-control" id="discount_rs" placeholder="Discount RS"
+                                                                   onblur="if(this.value==''){ this.value='0';}"
+                                                                   onfocus="if(this.value=='0'){ this.value='';}"
+                                                            >
+                                                            <span class="form-text error-alert text-danger">You entered quantity.</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group">
                                                             <label>Qty Avl</label>
                                                             <input type="text" readonly class="form-control" id="total_qty" placeholder="Available">
                                                             <span class="form-text error-alert text-danger">You entered quantity.</span>
@@ -336,16 +346,6 @@
                                                         <div class="form-group">
                                                             <label>Sale (Rs)</label>
                                                             <input type="numb" readonly style="background-color: rgb(146 248 152 / 92%) !important" class="form-control" id="sale_rs" placeholder="Sale RS">
-                                                            <span class="form-text error-alert text-danger">You entered quantity.</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <div class="form-group">
-                                                            <label>Discount (Rs)</label>
-                                                            <input type="number" style="background-color: rgba(241,226,172,0.92) !important" value="0" class="triggeraddbutton form-control" id="discount_rs" placeholder="Discount RS"
-                                                                   onblur="if(this.value==''){ this.value='0';}"
-                                                                   onfocus="if(this.value=='0'){ this.value='';}"
-                                                            >
                                                             <span class="form-text error-alert text-danger">You entered quantity.</span>
                                                         </div>
                                                     </div>
@@ -812,7 +812,8 @@
 
                                                     <table  border="0" style="margin: auto;">
                                                         <tr>
-                                                            <td  align="center" style="font-weight: bolder;font-size: 18px; font-family: Arial, sans-serif">POLICIES</td>
+                                                            <td  align="center" style="font-weight: bolder;font-size: 18px; font-family: Arial, sans-serif">
+                                                                {{ credentials()->policies_title }}</td>
                                                         </tr>
 
                                                         <tr>
@@ -1227,11 +1228,11 @@
                     $(".saveproduct").click();
                 }
             });
-            $("#paid").keypress(function(e) {
-                if(e.which == 13) {
-                    $("#submitcart").click();
-                }
-            });
+            // $("#paid").keypress(function(e) {
+            //     if(e.which == 13) {
+            //         $("#submitcart").click();
+            //     }
+            // });
 
             //Product Previous Data
             $('.product_id').change(function () {

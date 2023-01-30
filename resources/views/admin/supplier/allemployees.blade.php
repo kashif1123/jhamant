@@ -164,7 +164,7 @@
                                         <th>Salary</th>
                                         <th>Commission (%)</th>
                                         <th>Registration Date</th>
-                                        {{--<th>Type</th>--}}
+                                        <th>Status</th>
                                         <th>Description</th>
 {{--                                        <th>Delete</th>--}}
                                     </tr>
@@ -236,7 +236,12 @@
                     {label: "Salary:", name: "salary",type:"text"},
                     {label: "Commission:", name: "commission",type:"text"},
                     {label: "Registration Date:", name: "registration_date",type:"readonly"},
-                    // {label: "Type:", name: "type",type:"readonly"},
+                    {label: "Status:", name: "status",type:"select",
+                        options: [
+                            { label: "Enable", value: "enable" },
+                            { label: "Disable",  value: "disable" }
+                        ]
+                    },
                     {label: "Description:", name: "description",type:"readonly"},
                 ]
             });
@@ -320,6 +325,7 @@
                                     '<th style="text-align: center;">Salary</th>' +
                                     '<th style="text-align: center;">Commission</th>' +
                                     '<th style="text-align: center;">Registration Date</th>' +
+                                    '<th style="text-align: center;">Status</th>' +
                                     '<th style="text-align: center;">Description</th>' +
                                     '</tr>'
                                 );
@@ -376,6 +382,7 @@
                     {data:'salary','name':'salary'},
                     {data:'commission','name':'commission'},
                     {data:'registration_date','name':'registration_date'},
+                    {data:'status','name':'status'},
                     {data:'description','name':'description'},
                     // {
                     //

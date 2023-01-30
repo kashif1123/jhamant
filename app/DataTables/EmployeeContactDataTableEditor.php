@@ -36,6 +36,7 @@ class EmployeeContactDataTableEditor extends DataTablesEditor
         return [
 //            'email' => 'sometimes|required|email|' . Rule::unique($model->getTable())->ignore($model->getKey()),
             'contact'  => 'sometimes|required',
+            'status'  => 'sometimes|required',
         ];
     }
 

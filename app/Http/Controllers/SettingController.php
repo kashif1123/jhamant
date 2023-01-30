@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Credential;
+use App\Policey;
 use Illuminate\Http\Request;
 
 class SettingController extends Controller
@@ -20,7 +21,20 @@ class SettingController extends Controller
         $settings->phone2=$request->phone2;
         $settings->phone3=$request->phone3;
         $settings->address=$request->address;
+        $settings->policies_title=$request->policies_title;
         $settings->update();
+        $policies=Policey::all();
+        if ($policies) {
+            foreach ($policies as $p) {
+                $p->delete();
+            }
+        }
+        foreach (explode(",", $request->policies) as $pp){
+            $policy= new Policey();
+            $policy->policy=$pp;
+            $policy->save();
+        }
+
         return response("Success");
     }
 }

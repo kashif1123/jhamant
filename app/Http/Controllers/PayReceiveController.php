@@ -47,7 +47,7 @@ class PayReceiveController extends Controller
         return response(["data"=>$munshis]);
     }
     public function fetch_employees(){
-        $munshis=Employee::all();
+        $munshis=Employee::where('status','=','enable')->get();
         return response(["data"=>$munshis]);
     }
     public function fetch_owners(){

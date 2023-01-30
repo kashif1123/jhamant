@@ -350,7 +350,7 @@ class SupplierController extends Controller
         } catch (\Exception $e) {
         }
     }    public function dtgetshowemployees(){
-        $data=Employee::select('employees.id','employees.name','employees.cnic','salary','commission','employees.address','employees.opening_balance','employees.registration_date','employees.type','employees.description',
+        $data=Employee::select('employees.id','employees.status','employees.name','employees.cnic','salary','commission','employees.address','employees.opening_balance','employees.registration_date','employees.type','employees.description',
 //            DB::raw("ledgers.balance order by ledgers.id desc limit 1 ")
         )
             ->join('ledgers','ledgers.person_id','=','employees.id')

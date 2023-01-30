@@ -8,6 +8,40 @@
             width: 100%;
         }
     </style>
+    <style>
+        .bootstrap-tagsinput{
+            display: block;
+            width: 100%;
+            min-height: calc(1.5em + 1.3rem + 2px);
+            height:auto;
+            padding: .65rem 1rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #e2e5ec;
+            border-radius: 4px;
+            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        }
+        .bootstrap-tagsinput {
+            box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0.0);
+        }
+        .bootstrap-tagsinput:focus {
+            color: #495057;
+            background-color: #fff;
+            border-color: #9aabff;
+            outline: 0;
+        }
+        .bootstrap-tagsinput .tag {
+            margin-right: 2px;
+            color: rgba(6, 0, 0, 0.39);
+        }
+        .salary_field,.commission_field{
+            display: none;
+        }
+    </style>
 @endsection
 @section('content')
 
@@ -169,7 +203,7 @@
                             <div class="col-xl-12">
                                 <div class="kt-section kt-section--first">
                                     <div class="kt-section__body">
-{{--                                        <h3 class="kt-section__title kt-section__title-lg">Product Info:</h3>--}}
+                                        {{--                                        <h3 class="kt-section__title kt-section__title-lg">Product Info:</h3>--}}
                                         <div class="form-group row">
                                             {{--<div class="col-md-3"></div>--}}
                                             <div class="col-md-3">
@@ -238,14 +272,22 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
+
+                                            <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Policies</label>
+                                                    <label>Receipt Policies Title</label>
                                                     <div class="input-group">
-{{--                                                        <div class="form-control">--}}
-                                                        <div id="summernote">Hello Summernote</div>
-{{--                                                        </div>--}}
+                                                        <input class="form-control" value="{{$credentials->policies_title}}" type="text" id="policies_title">
+                                                        <span class="form-text error-alert text-danger"></span>
                                                     </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Receipt Policies</label>
+                                                    <input type="text" class="form-control" name="policies[]" data-role="tagsinput" id="policies" placeholder="Enter Policies">
+                                                    <span class="form-text error-alert text-danger">You entered invalid Contact No.</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -318,6 +360,7 @@
                                     <span class="form-text error-alert text-danger"></span>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -370,6 +413,9 @@
                         var phone2=$('#phone2').val();
                         var phone3=$('#phone3').val();
                         var address=$('#address').val();
+                        var policies=$('#policies').val();
+                        console.log(policies);
+                        var policies_title=$('#policies_title').val();
                         //validation
                         if (company_name == '' || company_name == null) {
                             // $('#name_error').removeClass('is-valid').addClass('is-invalid').closest('div').children('.form-text').text('Name is Required').removeClass('error-alert').show();
@@ -381,6 +427,11 @@
                             $('#owner_name').addClass('is-invalid').removeClass('is-valid').closest('div').children('.form-text').text('Category is Required.').addClass('text-danger').show();
                         } else {
                             $('#owner_name').removeClass('is-invalid').addClass('is-valid').closest('div').children('.form-text').text('').addClass('text-danger').hide();
+                        }
+                        if (policies_title == '' || policies_title == null) {
+                            $('#policies_title').addClass('is-invalid').removeClass('is-valid').closest('div').children('.form-text').text('Policies Title is Required.').addClass('text-danger').show();
+                        } else {
+                            $('#policies_title').removeClass('is-invalid').addClass('is-valid').closest('div').children('.form-text').text('').addClass('text-danger').hide();
                         }
                         if (designation == '' || designation == null) {
                             // $('.selectcompany').addClass('is-invalid').removeClass('is-valid').closest('div').children('.form-text').text('Company is Required.').addClass('text-danger').show();
@@ -411,6 +462,8 @@
                                     'phone2': phone2,
                                     'phone3': phone3,
                                     'address': address,
+                                    'policies': policies,
+                                    'policies_title': policies_title,
                                     '_token': '{{csrf_token()}}'
                                 },
                                 success: function (data) {
@@ -432,6 +485,7 @@
                                     $('#product').removeClass('is-invalid').removeClass('is-valid').closest('div').children('.form-text').text('').addClass('text-danger').hide();
                                     $('#purchase').removeClass('is-invalid').removeClass('is-valid').closest('div').children('.form-text').text('').addClass('text-danger').hide();
                                     $('#sale').removeClass('is-invalid').removeClass('is-valid').closest('div').children('.form-text').text('').addClass('text-danger').hide();
+                                    $('#policies_title').removeClass('is-invalid').removeClass('is-valid').closest('div').children('.form-text').text('').addClass('text-danger').hide();
                                     $('.selectcategory').removeClass('is-invalid').removeClass('is-valid').closest('div').children('.form-text').text('').addClass('text-danger').hide();
                                     location.reload();
                                 },

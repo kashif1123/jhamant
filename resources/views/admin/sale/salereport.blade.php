@@ -365,7 +365,7 @@
                             </td>
                             <table  border="0" style="margin: auto;">
                                 <tr>
-                                    <td  align="center" style="font-weight: bolder;font-size: 18px; font-family: Arial, sans-serif">POLICIES</td>
+                                    <td  align="center" style="font-weight: bolder;font-size: 18px; font-family: Arial, sans-serif">{{ credentials()->policies_title }}</td>
                                 </tr>
 
                                 <tr>

@@ -14,6 +14,8 @@
 //Route::get('/', function () {
 //    return view('welcome');
 //});
+use http\Client\Request;
+
 Route::group(['middleware' => 'role' ], function() {
         Route::get('reset_software_page','RestController@reset_software_page')->name('Reset Software');
         Route::post('post_reset','RestController@post_reset');
@@ -283,6 +285,9 @@ Route::group(['middleware' => 'role' ], function() {
     Route::group(['prefix' => 'setting'], function () {
         Route::get('/setting', 'SettingController@setting');
         Route::post('/apply_new_setting', 'SettingController@apply_new_setting');
+//        Route::post('/apply_new_setting', function (){
+//            dd('asdfasd');
+//        });
 
     });
 });
