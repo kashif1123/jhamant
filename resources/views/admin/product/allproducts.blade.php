@@ -505,7 +505,7 @@
                 var myData = table.row(current_row).data();//At this point, current_row refers to a valid row in the table, whether is a child row (collapsed by the DataTable's responsiveness) or a 'normal' row
                 console.log('Row data:'+myData);
                 console.log(myData);
-                var barcode= parseFloat(myData.barcode);
+                var barcode= myData.barcode;
                 var name=myData.name.substring(0,60);
 
                 var price=myData.sale_price;
