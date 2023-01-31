@@ -30,9 +30,11 @@ class SettingController extends Controller
             }
         }
         foreach (explode(",", $request->policies) as $pp){
+            if ($pp != null || $pp != ''){
             $policy= new Policey();
             $policy->policy=$pp;
             $policy->save();
+            }
         }
 
         return response("Success");

@@ -816,32 +816,24 @@
                                                                 {{ credentials()->policies_title }}</td>
                                                         </tr>
 
+                                                        @foreach(policies() as $policy)
                                                         <tr>
-                                                            {{--                                                            <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">1:-All Prices are fixed.</td></td>--}}
-                                                            <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">1:-All Prices are fixed.</td>
+                                                            <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">{{$loop->index+1}}:- {{$policy->policy}}</td>
                                                         </tr>
-                                                        <tr>
-                                                            {{--                                                            <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">2:-No Cash Refund for any exchange and return.</td></td>--}}
-                                                            <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">2:-No Cash Refund for any exchange and return.</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">3:-Pure wool must be dry cleaned.</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">4:-Clearance Sale Item and cut pieces are not exchangeable.</td>
-                                                        </tr>
+                                                        @endforeach
+{{--                                                        <tr>--}}
+{{--                                                            <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">2:-No Cash Refund for any exchange and return.</td>--}}
+{{--                                                        </tr>--}}
+{{--                                                        <tr>--}}
+{{--                                                            <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">3:-Pure wool must be dry cleaned.</td>--}}
+{{--                                                        </tr>--}}
+{{--                                                        <tr>--}}
+{{--                                                            <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">4:-Clearance Sale Item and cut pieces are not exchangeable.</td>--}}
+{{--                                                        </tr>--}}
                                                         </br>
                                                         <tr>
                                                             <td align="left" style=" border: 1px solid black; font-family: Arial, sans-serif;font-size: 12px;">A Software by BRAINIAC CS(0303-2600069)</td>
                                                         </tr>
-                                                        {{--                                                        <tr>--}}
-                                                        {{--                                                            <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">4:-Clearance Sale Item and cut pieces are not exchangeable.</td></td>--}}
-                                                        {{--                                                        </tr>--}}
-                                                        {{--                                                        </br>--}}
-                                                        {{--                                                        <tr>--}}
-                                                        {{--                                                            <td align="left" style=" border: 1px solid black; font-family: Arial, sans-serif;font-size: 12px;">A Software by BRAINIAC CS(0303-2600069)</td></td>--}}
-                                                        {{--                                                        </tr>--}}
-
                                                     </table>
 
                                                 </tr>

@@ -5,6 +5,10 @@ function credentials(){
     $cr=\App\Credential::get()->last();
     return $cr;
 }
+function policies(){
+    $policies=\App\Policey::all();
+    return$policies;
+}
 function last_balance($id,$type){
     $last_balance=\App\Ledger::where('person_type','=',$type)->where('person_id','=',$id)->get()->last();
     if ($last_balance && isset($last_balance)){

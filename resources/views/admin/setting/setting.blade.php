@@ -380,6 +380,9 @@
 
             <script>
                 $(document).ready(function (e) {
+                    @foreach(policies() as $policy)
+                        $('#policies').tagsinput('add', '{{$policy->policy}}');
+                    @endforeach
                     $(document).ready(function() {
                         $('#summernote').summernote({
                             height: 300,

@@ -368,18 +368,24 @@
                                     <td  align="center" style="font-weight: bolder;font-size: 18px; font-family: Arial, sans-serif">{{ credentials()->policies_title }}</td>
                                 </tr>
 
-                                <tr>
-                                    <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">1:-All Prices are fixed.</td>
-                                </tr>
-                                <tr>
-                                    <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">2:-No Cash Refund for any exchange and return.</td>
-                                </tr>
-                                <tr>
-                                    <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">3:-Original Receipt is required for exchange and claim within 7 days of purchase.</td>
-                                </tr>
-                                <tr>
-                                    <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">4:-Clearance Sale Item and cut pieces are not exchangeable.</td>
-                                </tr>
+                                @foreach(policies() as $policy)
+                                    <tr>
+                                        <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">{{$loop->index+1}}:- {{$policy->policy}}</td>
+                                    </tr>
+                                @endforeach
+{{--                                --}}
+{{--                                <tr>--}}
+{{--                                    <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">1:-All Prices are fixed.</td>--}}
+{{--                                </tr>--}}
+{{--                                <tr>--}}
+{{--                                    <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">2:-No Cash Refund for any exchange and return.</td>--}}
+{{--                                </tr>--}}
+{{--                                <tr>--}}
+{{--                                    <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">3:-Original Receipt is required for exchange and claim within 7 days of purchase.</td>--}}
+{{--                                </tr>--}}
+{{--                                <tr>--}}
+{{--                                    <td align="left" style="font-family: Arial, sans-serif;font-size: 10px;">4:-Clearance Sale Item and cut pieces are not exchangeable.</td>--}}
+{{--                                </tr>--}}
                                 </br>
                                 <tr>
                                     <td align="left" style=" border: 1px solid black; font-family: Arial, sans-serif;font-size: 12px;">A Software by BRAINIAC CS(0303-2600069)</td>
