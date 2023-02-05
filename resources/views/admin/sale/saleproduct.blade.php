@@ -898,6 +898,7 @@
             });
             $(document).keypress("p",function(e) {
                 if(e.shiftKey){
+
                     $('#save_and_print').click();
                 }
             });
@@ -1215,11 +1216,11 @@
                 }
             });
 
-            $("#product").keypress(function(e) {
-                if(e.which == 13) {
-                    $(".saveproduct").click();
-                }
-            });
+            // $("#product").keypress(function(e) {
+            //     if(e.which == 13) {
+            //         $(".saveproduct").click();
+            //     }
+            // });
             // $("#paid").keypress(function(e) {
             //     if(e.which == 13) {
             //         $("#submitcart").click();
