@@ -450,39 +450,39 @@
                 ]
             });
 
-            // $('#products thead tr').clone(true).appendTo('#products thead');
-            // $('#products thead tr:eq(1) th').each( function (i) {
-            //     if (i==0) {
-            //     }else {
-            //         var title = $(this).text();
-            //         $(this).html( '<input type="text" class="form-control" style="width:100%;" placeholder="'+title+'" />' );
-            //         $( 'input', this ).on( 'keyup change', function () {
-            //             if ( table.column(i).search() !== this.value ) {
-            //                 table
-            //                     .column(i)
-            //                     .search( this.value )
-            //                     .draw();
-            //             }
-            //         } );
-            //     }
-            // } );
+            $('#products thead tr').clone(true).appendTo('#products thead');
+            $('#products thead tr:eq(1) th').each( function (i) {
+                if (i==0) {
+                }else {
+                    var title = $(this).text();
+                    $(this).html( '<input type="text" class="form-control" style="width:100%;" placeholder="'+title+'" />' );
+                    $( 'input', this ).on( 'keyup change', function () {
+                        if ( table.column(i).search() !== this.value ) {
+                            table
+                                .column(i)
+                                .search( this.value )
+                                .draw();
+                        }
+                    } );
+                }
+            } );
 
-            // $('#s_products thead tr').clone(true).appendTo('#products thead');
-            // $('#s_products thead tr:eq(1) th').each( function (i) {
-            //     if (i==0) {
-            //     }else {
-            //         var title = $(this).text();
-            //         $(this).html( '<input type="text" class="form-control" style="width:100%;" placeholder="'+title+'" />' );
-            //         $( 'input', this ).on( 'keyup change', function () {
-            //             if ( s_table.column(i).search() !== this.value ) {
-            //                 s_table
-            //                     .column(i)
-            //                     .search( this.value )
-            //                     .draw();
-            //             }
-            //         } );
-            //     }
-            // } );
+            $('#s_products thead tr').clone(true).appendTo('#s_products thead');
+            $('#s_products thead tr:eq(1) th').each( function (i) {
+                if (i==0) {
+                }else {
+                    var title = $(this).text();
+                    $(this).html( '<input type="text" class="form-control" style="width:100%;" placeholder="'+title+'" />' );
+                    $( 'input', this ).on( 'keyup change', function () {
+                        if ( s_table.column(i).search() !== this.value ) {
+                            s_table
+                                .column(i)
+                                .search( this.value )
+                                .draw();
+                        }
+                    } );
+                }
+            } );
 
             function format ( d ,row) {
                 console.log(d);

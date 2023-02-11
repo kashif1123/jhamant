@@ -271,7 +271,7 @@
                                                                 <select class="form-control kt-select2 role product_id" id="kt_select2_8" name="param">
                                                                     <option value="default" disabled selected>Select a Product</option>
                                                                     @foreach($products as $product)
-                                                                        <option value="{{$product->id}}">{{$product->name}} <p style="font-size: 1px!important;color: white">{{$product->barcode}}</p></option>
+                                                                        <option value="{{$product->id}}">{{strtolower($product->name)}} <p style="font-size: 1px!important;color: white">{{strtolower($product->barcode)}}</p></option>
                                                                     @endforeach
                                                                 </select>
                                                                 <span class="form-text error-alert text-danger" >Please Select a Valid Product Name.</span>
@@ -896,12 +896,12 @@
                     },100);
                 }
             });
-            $(document).keypress("p",function(e) {
-                if(e.shiftKey){
+            // $(document).keypress("p",function(e) {
+            //     if(e.shiftKey){
 
-                    $('#save_and_print').click();
-                }
-            });
+                    // $('#save_and_print').click();
+                // }
+            // });
             $('.product_id').on('click',function () {
                 $(this).select2('open');
             });
@@ -1495,9 +1495,15 @@
             //total calculations
 
             $(".triggeraddbutton").keypress(function(e) {
-                if(e.which == 13) {
-                    $("#addtocartbtn").click();
+                // if (e.keyCode == 13 && e.shiftKey) {
+                if (e.keyCode == 13) {
+                    if (e.type == "keypress") {
+                        $("#addtocartbtn").click();
+                    }
+                    e.preventDefault();
                 }
+
+
             });
             $('.account').val(1).change();
             console.log('')
