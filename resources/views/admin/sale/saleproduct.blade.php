@@ -288,7 +288,7 @@
                                                     </div>
                                                     <div class="col-md-2">
                                                         <div class="form-group">
-                                                            <label>Discount (Rs)</label>
+                                                            <label>Discount (%)</label>
                                                             <input type="number" style="background-color: rgba(241,226,172,0.92) !important" value="0" class="triggeraddbutton form-control" id="discount_rs" placeholder="Discount RS"
                                                                    onblur="if(this.value==''){ this.value='0';}"
                                                                    onfocus="if(this.value=='0'){ this.value='';}"
@@ -1432,9 +1432,9 @@
                 var p_discount=0;
                 // }
                 if ($('.is-invalid').length<1) {
-                    var p_total= parseFloat(qty * (s_price-discount_rs));
+                    var p_total= parseFloat(qty * (s_price-(s_price*0.(discount_rs))));
                     // var p_discount= parseFloat(qty * $('#sale_rs').val());
-                    var p_discount= parseFloat(qty * discount_rs) + parseFloat(qty * $('#sale_rs').val());
+                    var p_discount= parseFloat(qty * (s_price-(s_price*0.(discount_rs)))) + parseFloat(qty * $('#sale_rs').val());
                     // var p_total_calculation=parseFloat(p_discount*p_total/100);
                     var p_g_total=parseFloat(p_total);
                    var ss_price=parseFloat($("#s_price").val() * qty);
