@@ -1432,9 +1432,9 @@
                 var p_discount=0;
                 // }
                 if ($('.is-invalid').length<1) {
-                    var p_total= parseFloat(qty * (s_price-(s_price*0.(discount_rs))));
+                    var p_total= parseFloat(qty * (s_price-(s_price*(discount_rs/100))));
                     // var p_discount= parseFloat(qty * $('#sale_rs').val());
-                    var p_discount= parseFloat(qty * (s_price-(s_price*0.(discount_rs)))) + parseFloat(qty * $('#sale_rs').val());
+                    var p_discount= parseFloat(qty * (s_price-(s_price*(discount_rs/100)))) + parseFloat(qty * $('#sale_rs').val());
                     // var p_total_calculation=parseFloat(p_discount*p_total/100);
                     var p_g_total=parseFloat(p_total);
                    var ss_price=parseFloat($("#s_price").val() * qty);
