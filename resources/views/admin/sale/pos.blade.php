@@ -269,7 +269,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="kt-margin-b-10">
-                                                        <label>Discount (Rs)</label>
+                                                        <label>Discount (%)</label>
                                                         <div class="input-group">
                                                             <input type="number" min="0" class="form-control" id="discount" value="0"  max="100" placeholder="Discount" aria-describedby="basic-addon2"
                                                                    onblur="if(this.value==''){ this.value='0';}"
