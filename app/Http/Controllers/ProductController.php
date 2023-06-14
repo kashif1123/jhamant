@@ -163,7 +163,7 @@ class ProductController extends Controller
             $products=Product::where('company_id','=',$request->sale_type_item)->update(['sale_percentage'=>$request->sale_percentage]);
         }elseif ($sale_type == "category"){
             $products=Product::where('category_id','=',$request->sale_type_item)->update(['sale_percentage'=>$request->sale_percentage]);
-            $category=Category::where('id','=',$request->sale_type_item)->update([['sale_percentage'=>$request->sale_percentage,'on_sale'=>'yes']]);
+            $category=Category::where('id','=',$request->sale_type_item)->update(['sale_percentage'=>$request->sale_percentage,'on_sale'=>'yes']);
         }else{
             $products=Product::where('id','=',$request->sale_type_item)->update(['sale_percentage'=>$request->sale_percentage]);
         }
