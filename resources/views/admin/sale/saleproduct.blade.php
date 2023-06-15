@@ -1413,11 +1413,11 @@
                 }  else {
                     $('#qty').removeClass('is-invalid').addClass('is-valid').closest('div').children('.form-text').text('').addClass('text-danger').hide();
                 }
-                if (discount_rs > s_price){
-                    $('#discount_rs').addClass('is-invalid').removeClass('is-valid').closest('div').children('.form-text').text('Cant give more discount than sale price').addClass('text-danger').show();
-                }  else {
-                    $('#discount_rs').removeClass('is-invalid').addClass('is-valid').closest('div').children('.form-text').text('').addClass('text-danger').hide();
-                }
+                // if (discount_rs > s_price){
+                //     $('#discount_rs').addClass('is-invalid').removeClass('is-valid').closest('div').children('.form-text').text('Cant give more discount than sale price').addClass('text-danger').show();
+                // }  else {
+                //     $('#discount_rs').removeClass('is-invalid').addClass('is-valid').closest('div').children('.form-text').text('').addClass('text-danger').hide();
+                // }
                 if (product_id == 'default' || product_id == null) {
                     $('.product_id').addClass('is-invalid').removeClass('is-valid').closest('div').children('.form-text').text('Select a Product.').addClass('text-danger').show();
                 } else {
@@ -1432,9 +1432,9 @@
                 var p_discount=0;
                 // }
                 if ($('.is-invalid').length<1) {
-                    var p_total= parseFloat(qty * (s_price-(s_price*(discount_rs/100))));
+                    var p_total= parseFloat((qty) * ((s_price)-((s_price)*(discount_rs/100))));
                     // var p_discount= parseFloat(qty * $('#sale_rs').val());
-                    var p_discount= parseFloat(qty * (s_price-(s_price*(discount_rs/100)))) + parseFloat(qty * $('#sale_rs').val());
+                    var p_discount= parseFloat((qty) * ((s_price)-((s_price)*(discount_rs/100)))) + parseFloat(qty * $('#sale_rs').val());
                     // var p_total_calculation=parseFloat(p_discount*p_total/100);
                     var p_g_total=parseFloat(p_total);
                    var ss_price=parseFloat($("#s_price").val() * qty);
